@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris en Python</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Tetris</h1>
+    <div id="game-container">
+        <div id="game-board">
+            <!-- El tablero se generará con JavaScript -->
+        </div>
+        <div id="game-info">
+            <h2>Info</h2>
+            <p>Puntuación: <span id="score">0</span></p>
+            <p>Nivel: <span id="level">1</span></p>
+            <h3>Siguiente Pieza:</h3>
+            <div id="next-piece-preview" class="game-board" style="width: 120px; height: 120px; border: 1px solid #ccc; display: grid;">
+                <!-- La vista previa de la siguiente pieza se generará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <div id="controls">
+        <p>Usa las flechas para mover y rotar. Espacio para bajar rápido.</p>
+        <button id="btn-left">←</button>
+        <button id="btn-rotate">↑</button>
+        <button id="btn-right">→</button>
+        <button id="btn-down">↓</button>
+        <button id="btn-drop">DROP</button>
+    </div>
+
+    <div id="game-over-message" class="game-over" style="display: none;">
+        ¡Juego Terminado!
+        <!-- Botón de reinicio se añadirá aquí por JS -->
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

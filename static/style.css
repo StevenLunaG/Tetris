@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+}
+
+#game-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+#game-board {
+    display: grid;
+    /* Se establecerá con JS */
+    border: 2px solid #333;
+    background-color: #000; /* Fondo del tablero */
+}
+
+.cell {
+    width: 30px; /* Tamaño de cada celda */
+    height: 30px;
+    /* border: 1px solid #ddd; */ /* Descomentar para ver la rejilla */
+    box-sizing: border-box;
+}
+
+/* Colores de los Tetrominós (puedes añadir más) */
+.I { background-color: cyan; }
+.L { background-color: orange; }
+.J { background-color: blue; }
+.S { background-color: green; }
+.Z { background-color: red; }
+.T { background-color: purple; }
+.O { background-color: yellow; }
+.empty { background-color: #111; } /* Celdas vacías dentro del tablero */
+
+#game-info {
+    margin-left: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    min-width: 150px;
+}
+
+#game-info h2 {
+    margin-top: 0;
+}
+
+#controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#controls button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 24px;
+    text-align: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
