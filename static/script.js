@@ -57,7 +57,14 @@ function drawBoard(board, currentPiece, pieceX, pieceY) {
 function drawNextPiece(nextPiece) {
     nextPieceElement.innerHTML = ''; // Limpiar vista previa
     if (nextPiece && nextPiece.shape) {
-        nextPieceElement.style.gridTemplateColumns = `repeat(4, 1fr)`; // Asumir max 4 de ancho
+        const rows = nextPiece.shape.length;
+        const cols = nextPiece.shape[0].length;
+
+        // Ajustar dinámicamente el tamaño de la cuadrícula
+        nextPieceElement.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        nextPieceElement.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+        // Dibujar la pieza
         nextPiece.shape.forEach(row => {
             row.forEach(value => {
                 const cell = document.createElement('div');
@@ -65,7 +72,7 @@ function drawNextPiece(nextPiece) {
                 if (value !== 0) {
                     cell.classList.add(nextPiece.color);
                 } else {
-                    cell.classList.add('empty'); // O un color de fondo para la vista previa
+                    cell.classList.add('empty');
                 }
                 nextPieceElement.appendChild(cell);
             });
@@ -149,9 +156,34 @@ function handleKeyPress(event) {
     }
 }
 
+let isPaused = false; // Estado de pausa
+
+function togglePause() {
+    isPaused = !isPaused;
+
+    const pauseOverlay = document.getElementById('pause-overlay');
+    if (isPaused) {
+        clearInterval(gameLoopInterval); // Detener el bucle del juego
+        pauseOverlay.style.display = 'flex'; // Mostrar la pantalla de pausa
+    } else {
+        pauseOverlay.style.display = 'none'; // Ocultar la pantalla de pausa
+        gameLoopInterval = setInterval(updateGame, 200); // Reanudar el bucle del juego
+    }
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        togglePause(); // Alternar pausa al presionar "ESC"
+    }
+});
+
 // Iniciar el juego
 document.addEventListener('DOMContentLoaded', () => {
     createBoard(); // Crear la estructura del tablero una vez
+
+    // Asegurarse de que la pantalla de pausa esté oculta
+    const pauseOverlay = document.getElementById('pause-overlay');
+    pauseOverlay.style.display = 'none';
 
     // Enviar una acción inicial para configurar el juego si es necesario o obtener el estado
     fetch('/action', {
