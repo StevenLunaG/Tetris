@@ -133,8 +133,10 @@ async function sendAction(action) {
     }
 }
 
+
 function handleKeyPress(event) {
-    if (gameOverMessageElement.style.display === 'block') return; // No procesar teclas si es game over
+    if (gameOverMessageElement.style.display === 'block') return;
+    if (isPaused && event.key !== 'Escape') return; // Solo permitir ESC en pausa
 
     switch (event.key) {
         case 'ArrowLeft':
@@ -146,12 +148,12 @@ function handleKeyPress(event) {
         case 'ArrowDown':
             sendAction('down');
             break;
-        case 'ArrowUp': // Rotar
+        case 'ArrowUp':
             sendAction('rotate');
             break;
-        case ' ': // Espacio para hard drop
+        case ' ':
             sendAction('drop');
-            event.preventDefault(); // Evitar que la página haga scroll
+            event.preventDefault();
             break;
     }
 }
@@ -160,20 +162,24 @@ let isPaused = false; // Estado de pausa
 
 function togglePause() {
     isPaused = !isPaused;
-
     const pauseOverlay = document.getElementById('pause-overlay');
+    const controlButtons = document.querySelectorAll('#controls button');
     if (isPaused) {
-        clearInterval(gameLoopInterval); // Detener el bucle del juego
-        pauseOverlay.style.display = 'flex'; // Mostrar la pantalla de pausa
+        clearInterval(gameLoopInterval);
+        pauseOverlay.style.display = 'flex';
+        // Deshabilitar botones
+        controlButtons.forEach(btn => btn.disabled = true);
     } else {
-        pauseOverlay.style.display = 'none'; // Ocultar la pantalla de pausa
-        gameLoopInterval = setInterval(updateGame, 200); // Reanudar el bucle del juego
+        pauseOverlay.style.display = 'none';
+        gameLoopInterval = setInterval(updateGame, 200);
+        // Habilitar botones
+        controlButtons.forEach(btn => btn.disabled = false);
     }
 }
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-        togglePause(); // Alternar pausa al presionar "ESC"
+        togglePause();
     }
 });
 
