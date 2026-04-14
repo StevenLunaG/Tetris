@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetris en Python</title>
+    <title>Tetris</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -39,6 +39,7 @@
     <div id="pause-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); color: white; display: flex; justify-content: center; align-items: center; z-index: 1000;">
         <h1>PAUSA</h1>
     </div>
+    <audio id="game-audio" src="{{ url_for('static', filename='bgm.mp3') }}" loop></audio>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

@@ -183,6 +183,24 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+const gameAudio = document.getElementById('game-audio');
+
+// Para reproducir el audio al iniciar el juego
+/*function playAudio() {
+    gameAudio.currentTime = 0;
+    gameAudio.play();
+}*/
+
+function enableAudioOnUserInteraction() {
+    function startAudio() {
+        playAudio();
+        document.removeEventListener('keydown', startAudio);
+        document.removeEventListener('click', startAudio);
+    }
+    document.addEventListener('keydown', startAudio);
+    document.addEventListener('click', startAudio);
+}
+
 // Iniciar el juego
 document.addEventListener('DOMContentLoaded', () => {
     createBoard(); // Crear la estructura del tablero una vez
@@ -209,4 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-rotate')?.addEventListener('click', () => sendAction('rotate'));
     document.getElementById('btn-down')?.addEventListener('click', () => sendAction('down'));
     document.getElementById('btn-drop')?.addEventListener('click', () => sendAction('drop'));
+
+    enableAudioOnUserInteraction();
 });
